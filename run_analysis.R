@@ -1,5 +1,3 @@
-#You should create one R script called run_analysis.R
-#     that does the following. 
 #Merges the training and the test sets to create
 #      one data set.
 #Extracts only the measurements on the mean
@@ -43,10 +41,9 @@ obs1<-select(obs, matches(".mean.|.std."))
 train<-bind_cols(s,a1,obs1)
 rm(obs, obs1, a, a1, s)
 # Merge data and write output
-setwd("../")
-w1<- rbind(test, train)
-# write.csv(w1, "w1.csv", dec=",") for test
-w2 <- group_by(w1, subject, activity_name)
-w3<-summarise_each(w2, funs(mean))
-write.table(w3, file="outcome.txt",row.names=FALSE)
-#writeClipboard(colnames(test), format=1)
+setwd("../"); setwd("../")
+    rbind(test, train) %>%
+    group_by( subject, activity_name) %>%
+    summarise_each( funs(mean)) %>%
+    write.table( file="outcome.txt",row.names=FALSE)
+
